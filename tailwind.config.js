@@ -7,7 +7,7 @@ module.exports = {
   theme: {
     extend: {},
     fontFamily:{
-      //'body':['Font']
+      'body':['Merriweather'],
     }
   },
   plugins: [],
