@@ -7,7 +7,7 @@
 </head>
 <body class="bg-[url('assets/background.jpg')] bg-cover bg-no-repeat bg-center bg-fixed font-body">
     <div class="grid grid-rows-[auto_1fr_auto] h-screen">
-        <nav class="sticky backdrop-blur-sm flex justify-between items-center p-3 shadow-lg gap-40">
+        <nav class="sticky backdrop-blur-sm flex justify-between items-center p-4 shadow-lg gap-40">
             <span class="text-4xl">Weather App</span>
             <div id="search" class="flex items-center mx-4 flex-1">
                 <input id="searchBox" class="text-2xl outline-none bg-inherit border-b-2 p-3 w-full" placeholder="Type your city">
@@ -25,7 +25,38 @@
             </div>
         </nav>
         <main>
-            main
+            <div id="head" class="backdrop-blur-sm backdrop-contrast-50 shadow-lg absolute m-5 px-14 py-8 text-white grid grid-rows-[1fr_auto] grid-cols-2 gap-3">
+                <div id="degrees" class="row-start-1 row-end-2 col-start-1 col-end-2 flex justify-center items-center gap-3">
+                    <h1 class="text-8xl">9°</h1>
+                    <div id="chooseDeg" class="flex flex-col items-center justify-between text-2xl">
+                        <p class="text-white">C</p>
+                        <p class="text-gray-400">F</p>
+                    </div>
+                </div>
+                <div id="icon" class="flex flex-col justify-center items-center">
+                    <img src="assets/partly_cloudy_day_24dp_38BDF8_FILL0_wght400_GRAD0_opsz24.png" class="w-28 h-28 row-start-1 row-end-2 col-start-2">
+                    <p>Cloudy</p>
+                </div>
+                <div id="location" class="row-start-2 col-start-1 col-end-3 flex flex-col items-center gap-3">
+                    <h1 class="text-4xl">Coventry</h1>
+                    <p>United Kingdom</p>
+                </div>
+            </div>
+            <div class="absolute right-0 backdrop-blur-sm backdrop-contrast-50 shadow-lg m-5 px-14 py-8 text-white text-right flex flex-col gap-3">
+                <div class="time">
+                    <p class="text-2xl">11:47 PM</p>
+                    <p>Thursday 10 Oct 2024</p>
+                </div>
+                <div class="day flex gap-3 text-gray-400">
+                    <span>Mon</span>
+                    <span>Tue</span>
+                    <span>Wed</span>
+                    <span class="text-white">Thu</span>
+                    <span>Fri</span>
+                    <span>Sat</span>
+                    <span>Sun</span>
+                </div>
+            </div>
         </main>
         <footer class="text-xs text-center backdrop-blur-sm p-3 text-gray-400">
             Copyright © jackiewaang | Background Photo by <a href="https://unsplash.com/@noaa?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">NOAA</a> on <a href="https://unsplash.com/photos/three-rocks-near-duck-in-water-99F4mC79j1I?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
