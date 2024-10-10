@@ -8,7 +8,7 @@
 <body class="bg-[url('assets/background.jpg')] bg-cover bg-no-repeat bg-center bg-fixed font-body">
     <div class="grid grid-rows-[auto_1fr_auto] h-screen">
         <nav class="sticky backdrop-blur-sm flex justify-between items-center p-4 shadow-lg gap-40">
-            <span class="text-4xl">Weather App</span>
+            <span class="text-4xl text-white">Weather App</span>
             <div id="search" class="flex items-center mx-4 flex-1">
                 <input id="searchBox" class="text-2xl outline-none bg-inherit border-b-2 p-3 w-full" placeholder="Type your city">
                 <button type="button" id="searchBtn"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
@@ -34,7 +34,7 @@
                     </div>
                 </div>
                 <div id="icon" class="flex flex-col justify-center items-center">
-                    <img src="assets/partly_cloudy_day_24dp_38BDF8_FILL0_wght400_GRAD0_opsz24.png" class="w-28 h-28 row-start-1 row-end-2 col-start-2">
+                    <img src="assets/cloudy.png" class="w-28 h-28 row-start-1 row-end-2 col-start-2">
                     <p>Cloudy</p>
                 </div>
                 <div id="location" class="row-start-2 col-start-1 col-end-3 flex flex-col items-center gap-3">
@@ -43,18 +43,18 @@
                 </div>
             </div>
             <div class="absolute right-0 backdrop-blur-sm backdrop-contrast-50 shadow-lg m-5 px-14 py-8 text-white text-right flex flex-col gap-3">
-                <div class="time">
-                    <p class="text-2xl">11:47 PM</p>
-                    <p>Thursday 10 Oct 2024</p>
+                <div id="timeContainer" class="flex flex-col gap-3">
+                    <p id="time" class="text-3xl"></p>
+                    <p id="fulltime"></p>
                 </div>
-                <div class="day flex gap-3 text-gray-400">
-                    <span>Mon</span>
-                    <span>Tue</span>
-                    <span>Wed</span>
-                    <span class="text-white">Thu</span>
-                    <span>Fri</span>
-                    <span>Sat</span>
-                    <span>Sun</span>
+                <div id="day" class="flex gap-3 text-gray-400">
+                    <span id="mon">Mon</span>
+                    <span id="tue">Tue</span>
+                    <span id="wed">Wed</span>
+                    <span id="thu" class="text-white">Thu</span>
+                    <span id="fri">Fri</span>
+                    <span id="sat">Sat</span>
+                    <span id="sun">Sun</span>
                 </div>
             </div>
         </main>
