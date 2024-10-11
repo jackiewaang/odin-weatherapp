@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+<script defer src="main.js"></script></head>
+<body class="bg-[url('assets/background.jpg')] bg-cover bg-no-repeat bg-center bg-fixed font-body text-white">
+    <div class="grid grid-rows-[auto_1fr_auto] h-screen">
+        <nav class="sticky backdrop-blur-sm flex justify-between items-center p-4 shadow-lg gap-40">
+            <span class="text-4xl ">Weather App</span>
+            <div id="search" class="flex items-center mx-4 flex-1">
+                <input id="searchBox" class="text-2xl outline-none bg-inherit border-b-2 p-3 w-full" placeholder="Type your city">
+                <button type="button" id="searchBtn"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                    <path fill-rule="evenodd" d="M10.5 3.75a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0 0 0-13.5ZM2.25 10.5a8.25 8.25 0 1 1 14.59 5.28l4.69 4.69a.75.75 0 1 1-1.06 1.06l-4.69-4.69A8.25 8.25 0 0 1 2.25 10.5Z" clip-rule="evenodd" />
+                </svg></button>                  
+            </div>
+            <div id="degree" class="flex gap-4">
+                <span>C</span>
+                <label class="inline-flex items-center cursor-pointer">
+                    <input type="checkbox" value="" class="sr-only peer" id="toggleDegree">
+                    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-gray-200 rounded-full peer dark:bg-cyan-400 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:peer-focus:outline-none after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-red-400"></div>
+                </label>
+                <span>F</span>
+            </div>
+        </nav>
+        <main>
+            <div id="head" class="hidden backdrop-blur-sm backdrop-contrast-50 shadow-lg absolute m-5 px-14 py-8 text-white grid grid-rows-[1fr_auto] grid-cols-2 gap-3">
+                <div id="degrees" class="row-start-1 row-end-2 col-start-1 col-end-2 flex justify-center items-center gap-3">
+                    <h1 class="text-7xl" id="degreeData">0°</h1>
+                    <div id="chooseDeg" class="flex flex-col items-center justify-between text-2xl">
+                        <p class="text-white" id="degreeC">C</p>
+                        <p class="text-gray-400" id="degreeF">F</p>
+                    </div>
+                </div>
+                <div class="flex flex-col justify-center items-center">
+                    <img id="icon" src="#" class="w-28 h-28 row-start-1 row-end-2 col-start-2">
+                    <p id="weatherType">None</p>
+                </div>
+                <div id="location" class="row-start-2 col-start-1 col-end-3 flex flex-col items-center gap-3">
+                    <h1 id="city" class="text-4xl">City</h1>
+                    <p id="country">Country</p>
+                </div>
+            </div>
+            <div class="absolute right-0 backdrop-blur-sm backdrop-contrast-50 shadow-lg m-5 px-14 py-8 text-white text-right flex flex-col gap-3">
+                <div id="timeContainer" class="flex flex-col gap-3">
+                    <p id="time" class="text-3xl"></p>
+                    <p id="fulltime"></p>
+                </div>
+                <div id="day" class="flex gap-3 text-gray-400">
+                    <span id="mon">Mon</span>
+                    <span id="tue">Tue</span>
+                    <span id="wed">Wed</span>
+                    <span id="thu" class="text-white">Thu</span>
+                    <span id="fri">Fri</span>
+                    <span id="sat">Sat</span>
+                    <span id="sun">Sun</span>
+                </div>
+            </div>
+            <div id="spinner" class="hidden absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                <img src="2cb59e980b0efa145603.png" class="animate-spin">
+            </div>
+            <div id="info" class="hidden absolute right-0 bottom-10 backdrop-blur-sm backdrop-contrast-50 shadow-lg m-5 grid grid-rows-3 grid-cols-[1fr_1fr] gap-10 p-10 px-16">
+                <div id="humidityBox" class="flex gap-12 items-center justify-between">
+                    <div id="box1" class="flex items-center gap-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#FFFFFF"><path d="M580.08-246.67q22.25 0 37.75-15.58 15.5-15.57 15.5-37.83 0-22.25-15.58-37.75-15.57-15.5-37.83-15.5-22.25 0-37.75 15.58-15.5 15.57-15.5 37.83 0 22.25 15.58 37.75 15.57 15.5 37.83 15.5ZM378-251.33 628.67-502 582-548.67 331.33-298 378-251.33Zm2.08-195.34q22.25 0 37.75-15.58 15.5-15.57 15.5-37.83 0-22.25-15.58-37.75-15.57-15.5-37.83-15.5-22.25 0-37.75 15.58-15.5 15.57-15.5 37.83 0 22.25 15.58 37.75 15.57 15.5 37.83 15.5ZM480-80q-137 0-228.5-94T160-408q0-100 79.5-217.5T480-880q161 137 240.5 254.5T800-408q0 140-91.5 234T480-80Zm0-66.67q109.33 0 181.33-74.5 72-74.5 72-187.04 0-76.79-64.5-174.46-64.5-97.66-188.83-208.66-124.33 111-188.83 208.66-64.5 97.67-64.5 174.46 0 112.54 72 187.04 72 74.5 181.33 74.5ZM480-480Z"/></svg>
+                        <span>Humidity</span>
+                    </div>
+                    <span id="humidity">83%</span>
+                </div>
+                <div id="visibilityBox" class="flex gap-12 items-center justify-between">
+                    <div id="box2" class="flex items-center gap-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#FFFFFF"><path d="M480.08-326.67q72.25 0 122.75-50.58 50.5-50.57 50.5-122.83 0-72.25-50.58-122.75-50.57-50.5-122.83-50.5-72.25 0-122.75 50.58-50.5 50.57-50.5 122.83 0 72.25 50.58 122.75 50.57 50.5 122.83 50.5Zm-.24-62.66q-46.17 0-78.34-32.33-32.17-32.32-32.17-78.5 0-46.17 32.33-78.34 32.32-32.17 78.5-32.17 46.17 0 78.34 32.33 32.17 32.32 32.17 78.5 0 46.17-32.33 78.34-32.32 32.17-78.5 32.17ZM480-200q-146 0-264.67-82.5Q96.67-365 40-500q56.67-135 175.33-217.5Q334-800 480-800t264.67 82.5Q863.33-635 920-500q-56.67 135-175.33 217.5Q626-200 480-200Zm0-300Zm-.11 233.33q118.44 0 217.61-63.5 99.17-63.5 151.17-169.83-52-106.33-151.06-169.83-99.05-63.5-217.5-63.5-118.44 0-217.61 63.5-99.17 63.5-151.83 169.83 52.66 106.33 151.72 169.83 99.05 63.5 217.5 63.5Z"/></svg>
+                        <span>Visibility</span>
+                    </div>
+                    <span id="visibility">Unlimited</span>
+                </div>
+                <div id="uvindexBox" class="flex gap-12 items-center justify-between">
+                    <div id="box3" class="flex items-center gap-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#FFFFFF"><path d="m80-80 80-400h640l80 400H80Zm40-733.33V-880h120v66.67H120Zm42 666.66h284.67v-100H182l-20 100Zm75.67-449L190-642.33l85-85 47.67 46.66-85 85Zm-42.34 282.34h251.34v-100H215.33l-20 100Zm284.67-380q-77 0-130.5-54.5T293.33-880H360q2 50 36.33 85 34.34 35 83.67 35t83.67-35Q598-830 600-880h66.67Q664-802.33 610.5-747.83q-53.5 54.5-130.5 54.5ZM480-880Zm-33.33 360v-120h66.66v120h-66.66Zm66.66 373.33H798l-20-100H513.33v100Zm0-166.66h251.34l-20-100H513.33v100Zm209-283-84.66-85L684.33-728 770-644l-47.67 47.67Zm-2.33-217V-880h120v66.67H720Z"/></svg>
+                        <span>UV Index</span>
+                    </div>
+                    <span id="uvindex">0 of 10</span>
+                </div>
+                <div id="pressureBox" class="flex gap-12 items-center justify-between">
+                    <div id="box4" class="flex items-center gap-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#FFFFFF"><path d="M480-80q-83.33 0-156.33-31.17-73-31.16-127.17-85.33t-85.33-127.17Q80-396.67 80-480q0-83.49 31.17-156.41 31.16-72.92 85.33-127.09t127.17-85.33Q396.67-880 480-880q83.49 0 156.41 31.17 72.92 31.16 127.09 85.33t85.33 127.09Q880-563.49 880-480q0 83.33-31.17 156.33-31.16 73-85.33 127.17t-127.09 85.33Q563.49-80 480-80Zm.14-224.67q61.19 0 119.19 17.17t109.34 50.83q50-48 77.33-110.78 27.33-62.79 27.33-132.55 0-139.58-96.87-236.46-96.88-96.87-236.46-96.87t-236.46 96.87Q146.67-619.58 146.67-480q0 69.74 27.16 133.03Q201-283.67 252-236.67q50.67-33.66 108.8-50.83 58.14-17.17 119.34-17.17ZM480-238q-43.67 0-86.33 11.67Q351-214.67 311.33-192q39.67 22 82.34 33.67 42.66 11.66 86.33 11.66t86.33-11.66Q609-170 648.67-192q-39.67-22.67-82.34-34.33Q523.67-238 480-238ZM271.45-532q14.22 0 23.72-9.62 9.5-9.61 9.5-23.83 0-14.22-9.62-23.72-9.62-9.5-23.83-9.5-14.22 0-23.72 9.62-9.5 9.62-9.5 23.83 0 14.22 9.62 23.72 9.61 9.5 23.83 9.5Zm127.33-124q14.22 0 23.72-9.62 9.5-9.61 9.5-23.83 0-14.22-9.62-23.72-9.61-9.5-23.83-9.5-14.22 0-23.72 9.62-9.5 9.62-9.5 23.83 0 14.22 9.62 23.72 9.62 9.5 23.83 9.5Zm290.67 124q14.22 0 23.72-9.62 9.5-9.61 9.5-23.83 0-14.22-9.62-23.72-9.62-9.5-23.83-9.5-14.22 0-23.72 9.62-9.5 9.62-9.5 23.83 0 14.22 9.62 23.72 9.61 9.5 23.83 9.5Zm-209.5 127.33q31.05 0 53.22-22.13 22.16-22.13 22.16-53.2 0-14.37-5.33-28.18Q544.67-522 534.67-532l62.66-149.33Q603-694 598.5-706.5q-4.5-12.5-17.4-18.17-12.1-5.66-25.37-.21-13.26 5.45-18.4 18.88l-64 150.67q-29.33 3-49 24.5-19.66 21.5-19.66 50.83 0 31.07 22.11 53.2 22.11 22.13 53.17 22.13Zm.72 100ZM480-525.33ZM480-238Z"/></svg>
+                        <span>Pressure</span>
+                    </div>
+                    <span id="pressure">1011.9 mb</span>
+                </div>
+                <div id="windBox" class="flex gap-12 items-center justify-between">
+                    <div id="box5" class="flex items-center gap-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#FFFFFF"><path d="M463.33-160q-52.66 0-85.33-30.33-32.67-30.34-32.67-85h72q0 23 11.5 35.83 11.5 12.83 34.5 12.83 23.67 0 35.17-11.83t11.5-36.83q0-25-11.5-37.84Q487-326 463.33-326H80v-66.67h383.33q52.67 0 83 30.34 30.34 30.33 30.34 87 0 54.66-30.34 85Q516-160 463.33-160ZM80-565.33V-632h545.33q33.34 0 50.34-17.33 17-17.34 17-53.34t-17-53.33q-17-17.33-50.34-17.33-34 0-51 19.33t-17 48.67h-66.66q0-58.34 36.83-96.5Q564.33-840 625.33-840q60.34 0 97.17 37.17 36.83 37.16 36.83 100.16T722.5-602.5q-36.83 37.17-97.17 37.17H80Zm668 326.66v-66.66q32 0 48.67-18.67 16.66-18.67 16.66-52 0-34-18-51t-50-17H80v-66.67h665.33q61 0 97.84 36.84Q880-437 880-376q0 62.33-35.5 99.83t-96.5 37.5Z"/></svg>
+                        <span>Wind</span>
+                    </div>
+                    <span id="wind">3km/h</span>
+                </div>
+                <div id="precipitationBox" class="flex gap-12 items-center justify-between">
+                    <div id="box6" class="flex items-center gap-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#FFFFFF"><path d="M483-205.33q14.67-.34 23.17-6.84 8.5-6.5 8.5-17.83 0-12-8.67-18.83-8.67-6.84-24.67-6.5-41.66 1-86-25.17Q351-306.67 339-373.67q-2-9.66-9.5-15.66t-16.5-6q-12 0-19 9.16-7 9.17-4.67 19.84Q305-280 363.33-242q58.34 38 119.67 36.67ZM480-80q-137 0-228.5-94T160-408q0-100 79.5-217.5T480-880q161 137 240.5 254.5T800-408q0 140-91.5 234T480-80Zm0-66.67q109.33 0 181.33-74.5 72-74.5 72-186.83 0-77-64.5-174.67-64.5-97.66-188.83-208.66-124.33 111-188.83 208.66Q226.67-485 226.67-408q0 112.33 72 186.83 72 74.5 181.33 74.5ZM480-480Z"/></svg>
+                        <span>Precipitation</span>
+                    </div>
+                    <span id="precipitation">16°</span>
+                </div>
+            </div>
+        </main>
+        <footer class="text-xs text-center backdrop-blur-sm p-3 text-gray-400">
+            Copyright © jackiewaang | Background Photo by <a href="https://unsplash.com/@noaa?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">NOAA</a> on <a href="https://unsplash.com/photos/three-rocks-near-duck-in-water-99F4mC79j1I?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+        </footer>
+    </div>
+</body>
+</html>
